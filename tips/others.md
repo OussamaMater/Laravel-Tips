@@ -14,6 +14,7 @@
 - [On-Demand Storage Disks](#laravel-tip--on-demand-storage-disks-️)
 - [Higher Order Messages with Conditionables](#laravel-tip--higher-order-messages-with-conditionables-️)
 - [First Class Callables](#php-tip--first-class-callables-️)
+- [Control Notification Delivery](#laravel-tip--control-notification-delivery-️)
 
 ## Laravel Tip 💡: isset() ([⬆️](#other-useful-tips-cd-))
 
@@ -267,5 +268,32 @@ public function handle(): void
 private function isSpam(Comment $comment): bool
 {
     // Check if the comment is a spam
+}
+```
+
+## Laravel Tip 💡: Control Notification Delivery ([⬆️](#other-useful-tips-cd-))
+
+There are times when you may need to determine whether a queued notification should be sent to the user, such as when users can opt out of notifications. Laravel ships with the "shouldSend" to do exactly that 🚀
+
+```php
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
+
+class MarketingNotification extends Notification implements ShouldQueue
+{
+    use Queueable;
+
+    // ...
+
+    public function shouldSend(object $notifiable, string $channel): bool
+    {
+        // If false, the notification won't be sent
+        return $this->notiable->notifications_enabled;
+    }
 }
 ```
