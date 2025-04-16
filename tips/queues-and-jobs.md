@@ -9,6 +9,7 @@
 - [Skip Jobs](#laravel-tip--skip-jobs-️)
 - [Keeping Jobs Unique Until Processing](#laravel-tip--keeping-jobs-unique-until-processing-️)
 - [Rate Limit Jobs](#laravel-tip--rate-limit-jobs-️)
+- [Monitor Failed Jobs](#laravel-tip--monitor-failed-jobs-️)
 
 ## Laravel Tip 💡: Dispatch After Response ([⬆️](#queues--jobs-tips-cd-))
 
@@ -182,5 +183,39 @@ RateLimiter::for('reports', function (object $job) {
 public function middleware(): array
 {
     return [new RateLimited('reports')];
+}
+```
+
+## Laravel Tip 💡: Monitor Failed Jobs ([⬆️](#queues--jobs-tips-cd-))
+
+Have you ever needed to keep an eye on failed jobs and get notified when that happens? The failing method allows you to do exactly that 🚀
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Queue\Events\JobFailed;
+use App\Jobs\Contracts\ShouldNotifyOnFailures;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        Queue::failing(function (JobFailed $event) {
+            $event->exception->getMessage(); // Exception message
+            $event->job->getName(); // Job class
+            $event->job->getRawBody(); // Job body
+            $event->exception->getTraceAsString(); // Exception trace
+
+            // You can even mark the jobs with a contract to decide 
+            // whether to send notifications or not 🔥
+            if ($event->job instanceof ShouldNotifyOnFailures) {
+                $notifiable->notify(new JobFailedNotification($event));
+            }
+        });
+    }
 }
 ```
