@@ -94,6 +94,7 @@
 - [The New "incrementOrCreate" Method](#laravel-tip--the-new-incrementorcreate-method-️)
 - [Keep an Eye on Open Connections](#laravel-tip--keep-an-eye-on-open-connections-️)
 - [The "MassPrunable" trait](#laravel-tip--the-massprunable-trait-️)
+- [Restore Trashed Models](#laravel-tip--restore-trashed-models-️)
 
 ## Laravel Tip 💡: Get Original Attributes ([⬆️](#eloquent--database-tips-cd-))
 
@@ -1905,4 +1906,20 @@ class Flight extends Model
 
 // Schedule the pruning command to run daily for example
 $schedule->command(PruneCommand::class)->daily();
+```
+
+## Laravel Tip 💡: Restore Trashed Models ([⬆️](#eloquent--database-tips-cd-))
+
+Have you ever needed to restore trashed models? While you could do this manually, Laravel ships with a restore method for exactly this 🚀
+
+```php
+<?php
+
+Flight::query()
+    ->onlyTrashed() // Only the trashed records will be targeted
+    ->where('airline_id', 1)
+    // ->update(['deleted_at' => null]) Instead of this
+    ->restore(); // You can do this 🔥
+    
+// Restores all trashed records matching the condition with a single query 🔥
 ```
