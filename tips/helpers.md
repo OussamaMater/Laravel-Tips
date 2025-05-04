@@ -61,6 +61,7 @@
 - [The "remove" Str Method](#laravel-tip--the-remove-str-method-️)
 - [Check If a String Is a URL](#laravel-tip--check-if-a-string-is-a-url-️)
 - [Extract Text Between Strings](#laravel-tip--extract-text-between-strings-️)
+- [Reusable Pipelines](#laravel-tip--reusable-pipelines-️)
 
 ## Laravel Tip 💡: The "squish" method ([⬆️](#helpers-tips-cd-))
 
@@ -1101,4 +1102,41 @@ use Illuminate\Support\Str;
 $slice = Str::between('This is my name', 'This', 'name');
  
 // ' is my '
+```
+
+## Laravel Tip 💡: Reusable Pipelines ([⬆️](#helpers-tips-cd-))
+
+Pipelines allow you to split a large task into smaller, more manageable ones. Sometimes, you may want to use the same pipeline in different places, and it turns out Laravel allows you to define reusable pipelines out of the box 🚀
+
+```php
+<?php
+
+use Illuminate\Contracts\Pipeline\Hub;
+use Illuminate\Pipeline\Pipeline;
+
+// In a service provider
+public function boot()
+{
+    $this->app
+        ->get(Hub::class)
+        // Register a named pipeline that can be reused elsewhere
+        ->pipeline('process-uploaded-image', function (Pipeline $pipeline, $image) {
+            return $pipeline
+                ->send($image)
+                ->through([
+                    ValidateImage::class,
+                    Resize::class,
+                    Optimize::class,
+                    // ... more stages to handle the image
+                ])
+                ->thenReturn();
+        });
+}
+
+// Anywhere you handle image uploads
+Route::get('/upload-image', function (Hub $hub, Request $request) {
+    $image = $request->file('image');
+
+    $processedImage = $hub->pipe($image, 'process-uploaded-image');
+});
 ```
