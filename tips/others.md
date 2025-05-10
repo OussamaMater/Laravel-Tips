@@ -329,7 +329,7 @@ final class ScrapingBeeConfig
 
     public function isConfigured(): bool
     {
-        return self::getApiKey() !== null && self::getApiUrl() !== null;
+        return config('services.scrapingbee.api_key') !== null && config('services.scrapingbee.api_url') !== null;
     }
 
     public function ensureConfigured(): void
