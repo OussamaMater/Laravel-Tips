@@ -15,6 +15,7 @@
 - [Higher Order Messages with Conditionables](#laravel-tip--higher-order-messages-with-conditionables-️)
 - [First Class Callables](#php-tip--first-class-callables-️)
 - [Control Notification Delivery](#laravel-tip--control-notification-delivery-️)
+- [Wrap Configs in Classes](#laravel-tip--wrap-configs-in-classes-️)
 
 ## Laravel Tip 💡: isset() ([⬆️](#other-useful-tips-cd-))
 
@@ -296,4 +297,55 @@ class MarketingNotification extends Notification implements ShouldQueue
         return $this->notiable->notifications_enabled;
     }
 }
+```
+
+## Laravel Tip 💡: Wrap Configs in Classes ([⬆️](#other-useful-tips-cd-))
+
+Laravel configs often get reused across the codebase, which can become painful to manage. Instead, group related configs in a class for cleaner, easier maintenance 🚀
+
+```php
+<?php
+
+namespace App\Support\Config;
+
+use Exception;
+
+final class ScrapingBeeConfig
+{
+    public static function isEnabled(): bool
+    {
+        return config()->boolean('services.scrapingbee.enabled');
+    }
+
+    public function getApiKey(): string
+    {
+        return config()->string('services.scrapingbee.api_key');
+    }
+
+    public function getApiUrl(): string
+    {
+        return config()->string('services.scrapingbee.api_url');
+    }
+
+    public function isConfigured(): bool
+    {
+        return self::getApiKey() !== null && self::getApiUrl() !== null;
+    }
+
+    public function ensureConfigured(): void
+    {
+        if (! self::isConfigured()) {
+            throw new Exception('ScrapingBee is not configured');
+        }
+    }
+}
+
+Route::get('/', function () {
+    // Using this in many places becomes painful overtime
+    return config('services.scrapingbee.enabled');
+
+    // With a dedicated class, your config becomes cleaner and much easier 
+    // to manage and update
+    return ScrapingBeeConfig::isEnabled();
+});
 ```
