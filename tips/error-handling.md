@@ -4,6 +4,7 @@
 - [Mapping Exception via Custom Exception Classes](#laravel-tip--mapping-exception-via-custom-exception-classes-️)
 - [Report Internal Exceptions](#laravel-tip--report-internal-exceptions-️)
 - [Skip Exception Reporting](#laravel-tip--skip-exception-reporting-️)
+- [Better Custom Exceptions](#php-tip--better-custom-exceptions-️)
 
 ## Laravel Tip 💡: Mapping Exceptions via Handler ([⬆️](#error-handling-tips-cd-))
 
@@ -107,4 +108,38 @@ class PodcastProcessingException extends Exception implements ShouldntReport
 {
     //
 }
+```
+
+## PHP Tip 💡: Better Custom Exceptions ([⬆️](#error-handling-tips-cd-))
+
+Do you use custom exceptions in your codebase and end up with multiple empty classes? You can group all related exceptions into a single class and use static methods to create english-like code that immediately tells you what went wrong 🚀
+
+```php
+<?php
+
+namespace App\Exceptions;
+
+use Exception;
+
+final class CouldNotStartAbTest extends Exception
+{
+    public static function testDoesNotHaveEnoughVariants(string $abTestName): static
+    {
+        return new static(
+            "Could not start the test '{$abTestName}'. At least 2 variants are required."
+        );
+    }
+
+    // Group all related exceptions here
+}
+
+// Instead of hardcoding the message
+throw new Exception('Could not start the test new-navbar. At least 2 variants are required.');
+
+// Or creating a separate custom exception for each error, which is just an empty class
+throw new NotEnoughAbTestVariantsException();
+
+// You can group all related exceptions into a single class, 
+// which makes the code more readable and maintainable
+throw CouldNotStartAbTest::testDoesNotHaveEnoughVariants('new-navbar');
 ```

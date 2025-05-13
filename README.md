@@ -22,6 +22,6 @@ Currently, there are over 300 tips categorized as follows:
 - 📬 [Queues & Job Tips](./tips/queues-and-jobs.md) (10 tips)
 - 🔒 [Authentication & Authorization Tips](./tips/auth.md) (6 tips)
 - 📦 [Laravel Container Tips](./tips/container.md) (6 tips)
-- ⚠️ [Error Handling Tips](./tips/error-handling.md) (4 tips)
+- ⚠️ [Error Handling Tips](./tips/error-handling.md) (5 tips)
 
 If you have new tips or suggestions for improving existing ones, feel free to drop a PR!
