@@ -1574,6 +1574,8 @@ $latestOrder = $user->latestOrder;
 $users = User::with('latestOrder')->get();
 ```
 
+> You can find a practical use case, an alternative method, and a comparison between them [here](https://blog.oussama-mater.tech/laravel-eager-loading-is-bad).
+
 ## Laravel Tip 💡: A Cleaner Eager Loading Syntax ([⬆️](#eloquent--database-tips-cd-))
 
 Sometimes, when need to eager load nested relationships, and for that we the use dot notation. But did you know you can also pass nested arrays? 🚀
