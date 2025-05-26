@@ -12,6 +12,7 @@
 - [URI Templates](#laravel-tip--uri-templates-️)
 - [Global Middleware for HTTP Client](#laravel-tip--global-middleware-for-http-client-️)
 - [Convert Responses to Exceptions](#laravel-tip--convert-responses-to-exceptions-️)
+- [HTTP Response Status Helpers](#laravel-tip--http-response-status-helpers-️)
 
 ## Laravel Tip 💡: The "withToken()" method ([⬆️](#api--the-http-client-tips-cd-))
 
@@ -257,4 +258,28 @@ $response->throwIfStatus(403);
 
 // Or even specify a range 🔥
 $response->throwIfStatus(fn(int $status) => $status >= 400);
+```
+
+## Laravel Tip 💡: HTTP Response Status Helpers ([⬆️](#api--the-http-client-tips-cd-))
+
+When making API requests, you often need to check the response status code. While you can do this manually, Laravel provides wrappers for almost all status codes, which you can use for elegant and readable checks 🚀
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Http;
+
+$response = Http::get('https://blog.oussama-mater.tech');
+
+// Instead of checking the status manually 🥱
+$response->status() === 404;
+
+// You can do this 🔥
+$response->notFound(); // status code 404
+$response->tooManyRequests(); // status code 429
+$response->forbidden(); // status code 403
+$response->unauthorized(); // status code 401
+$response->unprocessableContent(); // status code 422
+$response->serverError(); // status code >= 500
+$response->clientError(); // status code >= 400 && <500
 ```
