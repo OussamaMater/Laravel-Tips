@@ -6,6 +6,7 @@
 - [The New "optimizes" Method](#laravel-tip--the-new-optimizes-method-️)
 - [Deferred Providers](#laravel-tip--deferred-providers-️)
 - [Binding Primitives to Config Values](#laravel-tip--binding-primitives-to-config-values-️)
+- [Use Contextual Attributes](#laravel-tip--use-contextual-attributes-️)
 
 ## Laravel Tip 💡: Use rebinding events to refresh dependencies ([⬆️](#container-tips-cd-))
 
@@ -162,4 +163,32 @@ app()
     ->when(GitHub::class)
     ->needs('$apiKey')
     ->giveConfig('services.github.api-key');
+```
+
+## Laravel Tip 💡: Use Contextual Attributes ([⬆️](#container-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D%2011-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+You've probably had to initialize attributes with config values before. Laravel v11 makes it easier with contextual attributes. You can inject values directly, use constructor property promotion, and skip the boilerplate. It's just elegant 🚀
+
+```diff
+<?php
+
+namespace App\Services\Github;
+
+use Illuminate\Container\Attributes\Config;
+
+class GitHubClient
+{
+-    private string $apiToken;
+
+    public function __construct(
++        #[Config('services.github.api_key')]
++        private readonly string $apiKey,
+    ) {
+-        $this->apiToken = config()->string('services.github.api_key');
+    }
+
+    // ...
+}
 ```
