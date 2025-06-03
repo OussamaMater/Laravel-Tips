@@ -26,6 +26,7 @@
 - [Run Scheduled Commands on a Single Server](#laravel-tip--run-scheduled-commands-on-a-single-server-️)
 - [Handle Command Output](#laravel-tip--handle-command-output-️)
 - [Prompt For Missing Arguments](#laravel-tip--prompt-for-missing-arguments-️)
+- [Confirm to Proceed](#laravel-tip--confirm-to-proceed-️)
 
 ## Laravel Tip 💡: Much Cooler Command Output ([⬆️](#artisan--console-commands-tips-cd-))
 
@@ -508,4 +509,46 @@ class SendEmails extends Command implements PromptsForMissingInput
  │ oussama                                                      │
  └──────────────────────────────────────────────────────────────┘
 */
+```
+
+## Laravel Tip 💡: Confirm to Proceed ([⬆️](#artisan--console-commands-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D%204.2-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+Need to confirm before running a command? Laravel ships with the "ConfirmableTrait" for that exactly. Just call "confirmToProceed()" for confirmation, and skip the prompt anytime with the "--force" option 🚀
+
+```php
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use Illuminate\Console\ConfirmableTrait;
+
+class DeleteInactiveUsers extends Command
+{
+    use ConfirmableTrait;
+
+    protected $signature = 'users:delete-inactive {--force}';
+
+    protected $description = 'Delete all users who have been inactive for over a year.';
+
+    public function handle(): int
+    {
+        if (! $this->confirmToProceed()) {
+            return static::FAILURE;
+        }
+
+        // ...
+
+        return static::SUCCESS;
+    }
+}
+
+// You can then run:
+// php artisan users:delete-inactive
+// This will prompt you to confirm whether you want to proceed.
+
+// You can even bypass the confirmation by using the --force option. The trait supports that 🔥
+// php artisan users:delete-inactive --force
 ```
