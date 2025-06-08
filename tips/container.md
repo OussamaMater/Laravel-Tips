@@ -10,6 +10,8 @@
 
 ## Laravel Tip 💡: Use rebinding events to refresh dependencies ([⬆️](#container-tips-cd-))
 
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D4.1-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
 When a bound instance in the Laravel container is rebound, a rebinding event is triggered. You can listen to this event to ensure that the classes using the instance stay up to date. You can achieve this by using the rebinding method or simply using the refresh shortcut 🚀
 
 ```php
@@ -40,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
 ```
 
 ## Laravel Tip 💡: Bind Typed Variadics ([⬆️](#container-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D5-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 
 Did you know that you can bind typed variadics to the container? Laravel ships with 3 methods to allow you to do so: "when()", "needs()", and "give()". You can keep using DI without worries! 🚀
 
@@ -75,6 +79,8 @@ $this->app->when(Firewall::class)
 
 ## Laravel Tip 💡: Check Your Application Enviroment ([⬆️](#container-tips-cd-))
 
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D5.8-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
 We often need to check the application environment. While you can use the environment method to do so, Laravel ships with elegant methods "isProduction" and "isLocal" to do exactly that 🚀
 
 ```php
@@ -93,6 +99,8 @@ app()->isProduction()
 ```
 
 ## Laravel Tip 💡: The New "optimizes" Method ([⬆️](#container-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D11.27.1-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 
 Laravel v11.27.1 introduced a new service provider method called "optimizes". You can now define commands to run with the "optimize" and "optimize:clear" commands, such as "filament:optimize" or other custom commands 🚀
 
@@ -120,6 +128,8 @@ class AppServiceProvider extends ServiceProvider
 
 ## Laravel Tip 💡: Deferred Providers ([⬆️](#container-tips-cd-))
 
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D5.8-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
 If you have a service provider that only registers some bindings, you can mark it as deferred by implementing the "DeferrableProvider" interface. This way, it will load only when one of its bindings is needed 🚀
 
 ```php
@@ -146,6 +156,10 @@ class RiakServiceProvider extends ServiceProvider implements DeferrableProvider
 ```
 
 ## Laravel Tip 💡: Binding Primitives to Config Values ([⬆️](#container-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D8-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+> If you are using Laravel version 11 or higher, use [contextual attributes](#laravel-tip--use-contextual-attributes-️) instead.
 
 Sometimes, you might need to bind a primitive to a value, such as a config value. Instead of using "give()" with a callback, Laravel ships with the "giveConfig" shortcut to do exactly that 🚀
 
