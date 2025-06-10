@@ -13,6 +13,7 @@
 - [Global Middleware for HTTP Client](#laravel-tip--global-middleware-for-http-client-️)
 - [Convert Responses to Exceptions](#laravel-tip--convert-responses-to-exceptions-️)
 - [HTTP Response Status Helpers](#laravel-tip--http-response-status-helpers-️)
+- [Real-Time Download Progress](#laravel-tip--real-time-download-progress-️)
 
 ## Laravel Tip 💡: The "withToken()" method ([⬆️](#api--the-http-client-tips-cd-))
 
@@ -308,4 +309,28 @@ $response->unauthorized(); // status code 401
 $response->unprocessableContent(); // status code 422
 $response->serverError(); // status code >= 500
 $response->clientError(); // status code >= 400 && <500
+```
+
+## Laravel Tip 💡: Real-Time Download Progress ([⬆️](#api--the-http-client-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D7-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+If you ever need to download a file in your Laravel app, consider using Guzzle's "progress" option. It gives you real-time updates on the download, which you can broadcast to your UI, display in the console, or handle however you like 🚀
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Http;
+
+Http::withToken('an-api-token')
+    ->get('https://api.example.com/plugins/some-theme')
+    ->timeout(30)
+    ->withOptions([
+        'sink' => storage_path('plugins/some-theme.zip'),
+        'progress' => function ($downloadTotal, $downloadedBytes) {
+            // You can emit an event to the frontend for real-time updates,
+            event(new PluginDownloadProgress($downloadedBytes, $downloadTotal));
+            // Or update a progress bar in a console command, etc..
+        }
+    ]);
 ```
