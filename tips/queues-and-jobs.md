@@ -10,6 +10,7 @@
 - [Keeping Jobs Unique Until Processing](#laravel-tip--keeping-jobs-unique-until-processing-️)
 - [Rate Limit Jobs](#laravel-tip--rate-limit-jobs-️)
 - [Monitor Failed Jobs](#laravel-tip--monitor-failed-jobs-️)
+- [Fail Jobs on Specific Exceptions](#laravel-tip--fail-jobs-on-specific-exceptions-️)
 
 ## Laravel Tip 💡: Dispatch After Response ([⬆️](#queues--jobs-tips-cd-))
 
@@ -217,5 +218,61 @@ class AppServiceProvider extends ServiceProvider
             }
         });
     }
+}
+```
+
+## Laravel Tip 💡: Fail Jobs on Specific Exceptions ([⬆️](#queues--jobs-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D%2012.19-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+Have you ever needed to fail a job only for specific exceptions and ended up using a try-catch block with a "fail()" call?
+Since Laravel v12.19, you can handle this more elegantly by using the new "InvalidContentFormatException" middleware 🚀
+
+```diff
+<?php
+
+namespace Modules\Content\Jobs;
+
+use DateTime;
+use Throwable;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+
+class ProcessContentTranslation implements ShouldQueue
+{
+    use Dispatchable, Queueable;
+
+    public function __construct(
+        private readonly Content $content,
+    ) {
+    }
+
+    public function handle(TranslateContent $action): void
+    {
+-        try {
+            $action->handle($this->content);
+-        } catch (Throwable $exception) {
+-            if ($exception instanceof InvalidContentFormatException) {
+-                $this->fail($exception);
+-
+-                return;
+-            }
+-
+-            throw $exception;
+-        }
+    }
+
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(5);
+    }
+
++    public function middleware(): array
++    {
++        return [
++            new FailOnException([InvalidContentFormatException::class]),
++        ];
++    }
 }
 ```

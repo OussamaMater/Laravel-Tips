@@ -19,7 +19,7 @@ Currently, there are over 300 tips categorized as follows:
 - 🌐 [API & HTTP Client Tips](./tips/api-and-http-client.md) (14 tips)
 - 💡 [Random Cool Tips](./tips/others.md) (16 tips)
 - 🖼️ [View Tips](./tips/views.md) (10 tips)
-- 📬 [Queues & Job Tips](./tips/queues-and-jobs.md) (10 tips)
+- 📬 [Queues & Job Tips](./tips/queues-and-jobs.md) (11 tips)
 - 🔒 [Authentication & Authorization Tips](./tips/auth.md) (6 tips)
 - 📦 [Laravel Container Tips](./tips/container.md) (7 tips)
 - ⚠️ [Error Handling Tips](./tips/error-handling.md) (5 tips)
