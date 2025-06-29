@@ -27,6 +27,7 @@
 - [Use the "set" Method in Factories](#laravel-tip--use-the-set-method-in-factories-️)
 - [Generate Fake Credit Card Details](#laravel-tip--generate-fake-credit-card-details-️)
 - [Autocompletion in PestPHP](#laravel-tip--autocompletion-in-pestphp-️)
+- [Record API Responses as Fixtures](#laravel-tip--record-api-responses-as-fixtures-️)
 
 ## Laravel Tip 💡: Prevent Stray Requests ([⬆️](#testing-tips-cd-))
 
@@ -551,4 +552,31 @@ test('the array has the specified key', function () {
     // autocompletion works perfectly fine, and the IDE is happy 🔥
     test()->assertArrayHasKey('email', $array);
 });
+```
+
+## Laravel Tip 💡: Record API Responses as Fixtures ([⬆️](#testing-tips-cd-))
+
+If you are testing your API integrations (which you should) you are probably using the "fake()" method. To quickly prepare a stub for testing, you can use the "sink()" method to save the response into a fixture 🚀
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\File;
+
+// First, define the path where you want to save the API response
+$path = base_path('tests/Fixtures/also-asked-post-search.json');
+
+Http::baseUrl(config('services.alsoasked.api_url'))
+    ->withHeader('X-Api-Key', config('services.alsoasked.api_key'))
+    ->throw()
+    ->sink($path) // sink() will save the response directly to the specified path
+    ->post('search', [
+        // ...
+    ]);
+
+// Now you can use the saved API response for testing 🔥
+Http::fake([
+    config('services.alsoasked.api_url') . 'search' => File::json($path),
+]);
 ```
