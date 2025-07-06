@@ -10,6 +10,7 @@
 - [The "includeWhen" Blade Directive](#laravel-tip--the-includewhen-blade-directive-️)
 - [Render Inline Blade Templates](#laravel-tip--render-inline-blade-templates-️)
 - [Useful Loop Properties](#laravel-tip--useful-loop-properties-️)
+- [The "forelse" Blade Directive](#laravel-tip--the-forelse-blade-directive-️)
 
 ## Laravel Tip 💡: Type Hinting for Blade ([⬆️](#views--blade-tips-cd-))
 
@@ -161,4 +162,28 @@ When working with loops in Blade, you may need to check for odd iterations or ca
         The remaining attribute holds the number of iterations left in the loop.
     @endif
 @endforeach
+```
+
+## Laravel Tip 💡: The "forelse" Blade Directive ([⬆️](#views--blade-tips-cd-))
+
+When looping over a collection, you have probably checked its count first to handle the empty state. But the "forelse" Blade directive has existed forever, and it does exactly that, elegantly 🚀
+
+```php
+<?php
+
+// Instead of this 🥱
+@if ($users->count())
+    @foreach ($users as $user)
+        <li>{{ $user->name }}</li>
+    @endforeach
+@else
+    <p>No users</p>
+@endif
+
+// You can do this 🔥
+@forelse ($users as $user)
+    <li>{{ $user->name }}</li>
+@empty
+    <p>No users</p>
+@endforelse
 ```
