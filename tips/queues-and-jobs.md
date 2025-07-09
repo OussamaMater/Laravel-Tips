@@ -12,6 +12,7 @@
 - [Monitor Failed Jobs](#laravel-tip--monitor-failed-jobs-️)
 - [Fail Jobs on Specific Exceptions](#laravel-tip--fail-jobs-on-specific-exceptions-️)
 - [Display Remaining Attempts for a Rate-Limited Job](#laravel-tip--display-remaining-attempts-for-a-rate-limited-job-️)
+- [Encrypt Your Jobs](#laravel-tip--encrypt-your-jobs-️)
 
 ## Laravel Tip 💡: Dispatch After Response ([⬆️](#queues--jobs-tips-cd-))
 
@@ -315,4 +316,28 @@ Action::make('translate_content')
     ->icon('heroicon-o-language')
     // ... define the action here
     ->tooltip(RateLimiter::remaining(md5('content-translation-limiter'), 10) . ' remaining.');
+```
+
+## Laravel Tip 💡: Encrypt Your Jobs ([⬆️](#queues--jobs-tips-cd-))
+
+If you are working with sensitive jobs, you can instruct Laravel to encrypt the payload by using the "ShouldBeEncrypted" interface. How cool is this? 🚀
+
+```php
+<?php
+
+namespace App\Jobs;
+
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldBeEncrypted;
+
+class ProcessPlaidTransaction implements ShouldQueue, ShouldBeEncrypted
+{
+    use Queueable;
+
+    public function handle(): void
+    {
+        //
+    }
+}
 ```
