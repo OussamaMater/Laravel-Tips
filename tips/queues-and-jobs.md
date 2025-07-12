@@ -13,6 +13,7 @@
 - [Fail Jobs on Specific Exceptions](#laravel-tip--fail-jobs-on-specific-exceptions-️)
 - [Display Remaining Attempts for a Rate-Limited Job](#laravel-tip--display-remaining-attempts-for-a-rate-limited-job-️)
 - [Encrypt Your Jobs](#laravel-tip--encrypt-your-jobs-️)
+- [Global Middleware for Jobs](#laravel-tip--global-middleware-for-jobs-️)
 
 ## Laravel Tip 💡: Dispatch After Response ([⬆️](#queues--jobs-tips-cd-))
 
@@ -338,6 +339,30 @@ class ProcessPlaidTransaction implements ShouldQueue, ShouldBeEncrypted
     public function handle(): void
     {
         //
+    }
+}
+```
+
+## Laravel Tip 💡: Global Middleware for Jobs ([⬆️](#queues--jobs-tips-cd-))
+
+Did you know you can apply global job middleware? It can be really useful for custom logging and monitoring, like instantly notifying Slack or Discord about slower-than-usual jobs 🚀
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Bus;
+use App\Jobs\Middleware\MonitorJobPerformance;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        // Custom middleware that notifies Slack, Discord, etc. about slow jobs
+        // It will be executed as the last middleware in the stack
+        Bus::pipeThrough([MonitorJobPerformance::class]);
     }
 }
 ```
