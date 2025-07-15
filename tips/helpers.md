@@ -62,6 +62,7 @@
 - [Check If a String Is a URL](#laravel-tip--check-if-a-string-is-a-url-️)
 - [Extract Text Between Strings](#laravel-tip--extract-text-between-strings-️)
 - [Reusable Pipelines](#laravel-tip--reusable-pipelines-️)
+- [Clamp Numbers](#laravel-tip--clamp-numbers-️)
 
 ## Laravel Tip 💡: The "squish" method ([⬆️](#helpers-tips-cd-))
 
@@ -1139,4 +1140,20 @@ Route::get('/upload-image', function (Hub $hub, Request $request) {
 
     $processedImage = $hub->pipe($image, 'process-uploaded-image');
 });
+```
+
+## Laravel Tip 💡: Clamp Numbers ([⬆️](#helpers-tips-cd-))
+
+Have you ever needed to keep a number within a specific range, like a rating or a computed value? While you can hack your way through with min and max, Laravel ships with an elegant helper "clamp" to do exactly that 🚀
+
+```php
+<?php
+
+use Illuminate\Support\Number;
+
+Number::clamp(55, min: 10, max: 50); // Above the range, so the max 50 is returned
+
+Number::clamp(5, min: 10, max: 50); // Below the range, so the min 10 is returned
+
+Number::clamp(20, min: 10, max: 50); // Within the range, so the original value 20 is returned
 ```
