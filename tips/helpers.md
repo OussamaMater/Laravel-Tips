@@ -1157,3 +1157,29 @@ Number::clamp(5, min: 10, max: 50); // Below the range, so the min 10 is returne
 
 Number::clamp(20, min: 10, max: 50); // Within the range, so the original value 20 is returned
 ```
+
+## Laravel Tip 💡: Select Sub-Arrays ([⬆️](#helpers-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D10.45-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+There will be times when you need to extract a sub-array from the main one, whether it's from a JSON response, your models, or whatever. While you could use "map" for that, Laravel ships with a much more elegant helper, "select", just for this 🚀
+
+```php
+<?php
+
+use App\Models\Product;
+
+// Instead of this 🥱
+Product::all()->map(
+    fn(Product $product) => collect($product)->only(['name', 'price'])->toArray()
+);
+
+// You can do this instead 🔥
+Product::all()->select('name', 'price');
+
+/**
+ * Reminders:
+ * - pluck() only works for a single key
+ * - only() can't handle nested arrays
+ */
+```
