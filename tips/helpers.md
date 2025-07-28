@@ -63,6 +63,7 @@
 - [Extract Text Between Strings](#laravel-tip--extract-text-between-strings-️)
 - [Reusable Pipelines](#laravel-tip--reusable-pipelines-️)
 - [Clamp Numbers](#laravel-tip--clamp-numbers-️)
+- [Date Checks with Carbon](#laravel-tip--date-checks-with-carbon-️)
 
 ## Laravel Tip 💡: The "squish" method ([⬆️](#helpers-tips-cd-))
 
@@ -1182,4 +1183,37 @@ Product::all()->select('name', 'price');
  * - pluck() only works for a single key
  * - only() can't handle nested arrays
  */
+```
+
+## Laravel Tip 💡: Date Checks with Carbon ([⬆️](#helpers-tips-cd-))
+
+I know you've had to check if a date has expired or is in the future at least once. Since Laravel uses Carbon under the hood, you've got access to a ton of helpers to handle all that elegantly 🚀
+
+```php
+<?php
+
+use Illuminate\Support\Carbon;
+
+$date = Carbon::createFromDate(2025, 7, 28);
+
+$date->isToday();      // true
+$date->isTomorrow();   // false
+$date->isYesterday();  // false
+
+$date->isWeekday();    // true
+$date->isWeekend();    // false
+
+$date->isFuture();     // false
+$date->isPast();       // false
+
+// But wait, there's more 🔥
+$date->isSameDay(now());    // true
+$date->isSameWeek(now());   // true
+$date->isSameMonth(now());  // true
+$date->isSameYear(now());   // true
+
+// You can even specify a unit
+$date->isSameUnit('year', now()); // true
+
+// And the list goes on... 😎
 ```
