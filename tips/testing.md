@@ -580,3 +580,24 @@ Http::fake([
     config('services.alsoasked.api_url') . 'search' => File::json($path),
 ]);
 ```
+
+## Laravel Tip 💡: Generate Realistic Test Sentences ([⬆️](#testing-tips-cd-))
+
+Since Laravel uses FakerPHP under the hood, you can use "realText" to generate more realistic sentences for your tests instead of predictable dummy ones 🚀
+
+```php
+<?php
+
+// This is okay-ish 🥱
+fake()->paragraph();
+
+// Magni et eius nihil. Nihil cupiditate officiis dolor id dolor. 
+// Voluptate harum quibusdam delectus harum.
+
+// This is more solid for realistic tests 🔥
+fake()->realText();
+
+// Cheshire Cat: now I shall have some fun now!' thought Alice. ' I'm a--I'm a--' 
+// 'Well! WHAT are you?' And then a voice outside, and stopped to listen. 
+// 'Mary Ann! Mary Ann!' said the Duchess. An.
+```
