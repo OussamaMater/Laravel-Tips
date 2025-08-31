@@ -11,6 +11,7 @@
 - [Render Inline Blade Templates](#laravel-tip--render-inline-blade-templates-️)
 - [Useful Loop Properties](#laravel-tip--useful-loop-properties-️)
 - [The "forelse" Blade Directive](#laravel-tip--the-forelse-blade-directive-️)
+- [The "use" Blade Directive](#laravel-tip--the-use-blade-directive-️)
 
 ## Laravel Tip 💡: Type Hinting for Blade ([⬆️](#views--blade-tips-cd-))
 
@@ -186,4 +187,22 @@ When looping over a collection, you have probably checked its count first to han
 @empty
     <p>No users</p>
 @endforelse
+```
+
+## Laravel Tip 💡: The "use" Blade Directive ([⬆️](#views--blade-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D10.35-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+We have all probably used an enum in Blade at some point. While you can drop in raw PHP, Laravel v10 and upward have the "use" directive for exactly this 🚀
+
+```php
+// Instead of this 🥱
+@php
+use \App\Enums\TaskResult;
+use \App\Enums\NotificationTypeEnum as NotificationType;
+@endphp
+
+// You can do this 🔥
+@use('\App\Enums\TaskResult')
+@use('\App\Enums\NotificationTypeEnum', 'NotificationType')
 ```
