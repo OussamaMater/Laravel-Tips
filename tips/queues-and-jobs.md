@@ -229,7 +229,7 @@ class AppServiceProvider extends ServiceProvider
 ![Laravel](https://img.shields.io/badge/Laravel-%3E%3D%2012.19-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 
 Have you ever needed to fail a job only for specific exceptions and ended up using a try-catch block with a "fail()" call?
-Since Laravel v12.19, you can handle this more elegantly by using the new "InvalidContentFormatException" middleware 🚀
+Since Laravel v12.19, you can handle this more elegantly by using the new "FailOnException" middleware 🚀
 
 ```diff
 <?php
