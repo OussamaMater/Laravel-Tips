@@ -3,7 +3,6 @@
 - [isset()](#laravel-tip--isset-️)
 - [Preview Mailables](#laravel-tip--preview-mailables-️)
 - [PHP Tip 💡: More Readable Numbers](#php-tip--more-readable-numbers-️)
-- [Bootable Traits](#laravel-tip--bootable-traits-️)
 - [Requests Fingerprints](#laravel-tip--requests-fingerprints-️)
 - [Work with IPs](#laravel-tip--work-with-ips-️)
 - [The Conditionable Trait](#laravel-tip--the--conditionable-trait-️)
@@ -57,29 +56,6 @@ $amount = 100_000;
 
 $amount = 100000000;
 $amount = 100_000_000;
-```
-
-## Laravel Tip 💡: Bootable Traits ([⬆️](#other-useful-tips-cd-))
-
-Did you know that Laravel automatically boots your traits if they follow the `boot[TraitName]` convention? This allows you to easily define shared logic for model events. And here's a secret: that's where multi-tenancy starts 🚀
-
-```php
-<?php
-
-trait Sluggable
-{
-    public static function bootSluggable()
-    {
-        static::saving(function ($model) {
-            $model->slug = str($model->title)->slug()->toString();
-        });
-    }
-}
-
-class Post extends Model
-{
-    use Sluggable; // The trait will be booted automatically
-}
 ```
 
 ## Laravel Tip 💡: Requests Fingerprints ([⬆️](#other-useful-tips-cd-))

@@ -9,7 +9,7 @@ Daily Laravel/PHP tips I share on my [X](https://x.com/OussamaMater) and [Linked
 
 Currently, there are over 300 tips categorized as follows:
 
-- 🗄️ [Eloquent & Database Tips](./tips/eloquent-and-database.md) (95 tips)
+- 🗄️ [Eloquent & Database Tips](./tips/eloquent-and-database.md) (97 tips)
 - 🛠️ [Helpers Tips](./tips/helpers.md) (65 tips)
 - 🧪 [Testing Tips](./tips/testing.md) (29 tips)
 - 💻 [Artisan & Console Command Tips](./tips/console.md) (26 tips)
@@ -17,7 +17,7 @@ Currently, there are over 300 tips categorized as follows:
 - 📊 [Laravel Collections Tips](./tips/collections.md) (17 tips)
 - ✅ [Validation Tips](./tips/validation.md) (19 tips)
 - 🌐 [API & HTTP Client Tips](./tips/api-and-http-client.md) (14 tips)
-- 💡 [Random Cool Tips](./tips/others.md) (16 tips)
+- 💡 [Random Cool Tips](./tips/others.md) (15 tips)
 - 🖼️ [View Tips](./tips/views.md) (12 tips)
 - 📬 [Queues & Job Tips](./tips/queues-and-jobs.md) (14 tips)
 - 🔒 [Authentication & Authorization Tips](./tips/auth.md) (6 tips)

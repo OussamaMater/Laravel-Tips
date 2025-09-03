@@ -95,6 +95,7 @@
 - [Keep an Eye on Open Connections](#laravel-tip--keep-an-eye-on-open-connections-️)
 - [The "MassPrunable" trait](#laravel-tip--the-massprunable-trait-️)
 - [Restore Trashed Models](#laravel-tip--restore-trashed-models-️)
+- [Bootable Traits](#laravel-tip--bootable-traits-️)
 
 ## Laravel Tip 💡: Get Original Attributes ([⬆️](#eloquent--database-tips-cd-))
 
@@ -1924,4 +1925,58 @@ Flight::query()
     ->restore(); // You can do this 🔥
     
 // Restores all trashed records matching the condition with a single query 🔥
+```
+
+## Laravel Tip 💡: Bootable Traits ([⬆️](#eloquent--database-tips-cd-))
+
+Did you know that Laravel automatically boots your traits if they follow the `boot[TraitName]` convention? This allows you to easily define shared logic for model events. And here's a secret: that's where multi-tenancy starts 🚀
+
+```php
+<?php
+
+trait Sluggable
+{
+    public static function bootSluggable()
+    {
+        static::saving(function ($model) {
+            $model->slug = str($model->title)->slug()->toString();
+        });
+    }
+}
+
+class Post extends Model
+{
+    use Sluggable; // The trait will be booted automatically
+}
+```
+
+## Laravel Tip 💡: Boot Traits with Attributes ([⬆️](#eloquent--database-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D12.22-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+Laravel [bootable traits](#laravel-tip--bootable-traits-️) are great for extracting logic, but they come with a strict naming convention. Since Laravel v12.22, you can use proper PHP attributes, which not only makes the code cleaner but also lets you choose method names freely 🚀
+
+```php
+<?php
+
+use Illuminate\Database\Eloquent\Attributes\Boot;
+use Illuminate\Database\Eloquent\Attributes\Initialize;
+
+// Instead of using boot[TraitName] and initialize[TraitName],
+// you can now use attributes and give your methods readable names 🔥
+
+trait HasToken
+{
+    #[Boot]
+    public static function bootHasToken()
+    {
+        //
+    }
+
+    #[Initialize]
+    public function initializeHasToken()
+    {
+        //
+    }
+}
 ```
