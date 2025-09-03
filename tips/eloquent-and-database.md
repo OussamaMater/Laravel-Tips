@@ -96,6 +96,7 @@
 - [The "MassPrunable" trait](#laravel-tip--the-massprunable-trait-️)
 - [Restore Trashed Models](#laravel-tip--restore-trashed-models-️)
 - [Bootable Traits](#laravel-tip--bootable-traits-️)
+- [Boot Traits with Attributes](#laravel-tip--boot-traits-with-attributes-️)
 
 ## Laravel Tip 💡: Get Original Attributes ([⬆️](#eloquent--database-tips-cd-))
 
