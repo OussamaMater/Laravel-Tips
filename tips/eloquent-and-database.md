@@ -97,6 +97,7 @@
 - [Restore Trashed Models](#laravel-tip--restore-trashed-models-️)
 - [Bootable Traits](#laravel-tip--bootable-traits-️)
 - [Boot Traits with Attributes](#laravel-tip--boot-traits-with-attributes-️)
+- [The New "whereAttachedTo" Method](#laravel-tip--the-new-whereattachedto-method-️)
 
 ## Laravel Tip 💡: Get Original Attributes ([⬆️](#eloquent--database-tips-cd-))
 
@@ -1980,4 +1981,22 @@ trait HasToken
         //
     }
 }
+```
+
+## Laravel Tip 💡: The New "whereAttachedTo" Method ([⬆️](#eloquent--database-tips-cd-))
+
+We have all used "whereHas", and sometimes you need to constrain it to match specific models. Since Laravel v12.13, you can use "whereAttachedTo" for exactly that 🚀
+
+```php
+<?php
+
+$tags = Tag::where('created_at', '>', now()->subMonth())->get();
+
+// instead of this 🥱
+Post::whereHas('tags', function (Builder $query) use ($tags) {
+    $query->whereKey($tags);
+})->get();
+
+// You can do this 🔥
+Post::whereAttachedTo($tags)->get();
 ```
