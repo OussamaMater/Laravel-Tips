@@ -12,6 +12,7 @@
 - [Useful Loop Properties](#laravel-tip--useful-loop-properties-️)
 - [The "forelse" Blade Directive](#laravel-tip--the-forelse-blade-directive-️)
 - [The "use" Blade Directive](#laravel-tip--the-use-blade-directive-️)
+- [Better If Statements in Blade](#laravel-tip--better-if-statements-in-blade-️)
 
 ## Laravel Tip 💡: Type Hinting for Blade ([⬆️](#views--blade-tips-cd-))
 
@@ -205,4 +206,34 @@ use \App\Enums\NotificationTypeEnum as NotificationType;
 // You can do this 🔥
 @use('\App\Enums\TaskResult')
 @use('\App\Enums\NotificationTypeEnum', 'NotificationType')
+```
+
+## Laravel Tip 💡: Better If Statements in Blade ([⬆️](#views--blade-tips-cd-))
+
+If you are working with Blade, you will almost certainly use an if statement, and chances are, there is already a shortcut directive for what you need 🚀
+
+```html
+@auth
+    {{-- Equivalent to @if(auth()->check()) --}}
+@endauth
+
+@guest
+    {{-- Equivalent to @if(auth()->guest()) --}}
+@endguest
+
+@isset($record)
+    {{-- Equivalent to @if(isset($record)) --}}
+@endisset
+
+@empty($record)
+    {{-- Equivalent to @if(empty($record)) --}}
+@endempty
+
+@production
+    {{-- Equivalent to @if(app()->isProduction()) --}}
+@endproduction
+
+@env('local')
+    {{-- Equivalent to @if(app()->environment('local')) --}}
+@endenv
 ```
