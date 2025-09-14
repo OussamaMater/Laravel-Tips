@@ -22,6 +22,7 @@
 - [Force HTTPS for URLs](#laravel-tip--force-https-for-urls-️)
 - [The New "RouteParameter" Attribute](#laravel-tip--the-new-routeparameter-attribute-️)
 - [Disable Scope Bindings](#laravel-tip--disable-scope-bindings-️)
+- [Detect User Language](#laravel-tip--detect-user-language-️)
 
 ## Laravel Tip 💡: Model Binding in Form Requests ([⬆️](#routing--requests-tips-cd-))
 
@@ -405,4 +406,15 @@ By default, Laravel assumes that nested route models are related, meaning it wil
 Route::get('stores/{seller}/{category:slug}', ShowStoreComponent::class)
     ->name('stores.show')
     ->withoutScopeBindings();
+```
+
+## Laravel Tip 💡: Detect User Language ([⬆️](#routing--requests-tips-cd-))
+
+Laravel uses Symfony's HttpFoundation component, which comes with some nice goodies. If you are working with localization and need to detect the user's preferred language, you can just call "getPreferredLanguage" 🚀
+
+```php
+<?php
+
+// Get the user's preferred language 🔥
+$locale = request()->getPreferredLanguage(); // en_GB
 ```
