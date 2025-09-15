@@ -64,6 +64,7 @@
 - [Reusable Pipelines](#laravel-tip--reusable-pipelines-️)
 - [Clamp Numbers](#laravel-tip--clamp-numbers-️)
 - [Date Checks with Carbon](#laravel-tip--date-checks-with-carbon-️)
+- [Handle Pluralization Elegantly](#laravel-tip--handle-pluralization-elegantly-️)
 
 ## Laravel Tip 💡: The "squish" method ([⬆️](#helpers-tips-cd-))
 
@@ -1216,4 +1217,24 @@ $date->isSameYear(now());   // true
 $date->isSameUnit('year', now()); // true
 
 // And the list goes on... 😎
+```
+
+## Laravel Tip 💡: Handle Pluralization Elegantly ([⬆️](#helpers-tips-cd-))
+
+Did you know that besides localization, Laravel also handles pluralization out of the box? When you have messages in different plural forms, you can define them all at once and even use ranges to specify which format to use for each case  🚀
+
+```php
+<?php
+
+// In your lang/en/messages.php
+return [
+    'count' => '{0} Be the first to comment|{1} One comment|[2,*] :count comments',
+];
+
+trans_choice('messages.count', 0);  // "Be the first to comment"
+trans_choice('messages.count', 1);  // "One comment"
+trans_choice('messages.count', 10); // "10 comments"
+
+// Yes, you also get messages depending on the set locale 🔥
+// Another bonus: No more ugly if statements 🔥
 ```
