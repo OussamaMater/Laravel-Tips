@@ -1221,7 +1221,7 @@ $date->isSameUnit('year', now()); // true
 
 ## Laravel Tip 💡: Handle Pluralization Elegantly ([⬆️](#helpers-tips-cd-))
 
-Did you know that besides localization, Laravel also handles pluralization out of the box? When you have messages in different plural forms, you can define them all at once and even use ranges to specify which format to use for each case  🚀
+Did you know that besides localization, Laravel also handles pluralization out of the box? When you have messages in different plural forms, you can define them all at once and even use ranges to specify which format to use for each case 🚀
 
 ```php
 <?php
