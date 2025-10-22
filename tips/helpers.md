@@ -1242,6 +1242,8 @@ trans_choice('messages.count', 10); // "10 comments"
 
 ## Laravel Tip 💡: Wrap a Pipeline in a DB Transaction Elegantly ([⬆️](#helpers-tips-cd-))
 
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D12.22-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
 If you are using Laravel pipelines and wrapping the whole thing in a DB transaction, since Laravel v12.22 you can simplify your code by just calling "withinTransaction()" on the pipeline 🚀
 
 ```diff
