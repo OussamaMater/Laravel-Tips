@@ -10,7 +10,7 @@ Daily Laravel/PHP tips I share on my [X](https://x.com/OussamaMater) and [Linked
 Currently, there are over 300 tips categorized as follows:
 
 - 🗄️ [Eloquent & Database Tips](./tips/eloquent-and-database.md) (98 tips)
-- 🛠️ [Helpers Tips](./tips/helpers.md) (66 tips)
+- 🛠️ [Helpers Tips](./tips/helpers.md) (67 tips)
 - 🧪 [Testing Tips](./tips/testing.md) (29 tips)
 - 💻 [Artisan & Console Command Tips](./tips/console.md) (26 tips)
 - 🔄 [Routing & Request Tips](./tips/routing.md) (23 tips)

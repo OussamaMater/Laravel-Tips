@@ -65,6 +65,7 @@
 - [Clamp Numbers](#laravel-tip--clamp-numbers-️)
 - [Date Checks with Carbon](#laravel-tip--date-checks-with-carbon-️)
 - [Handle Pluralization Elegantly](#laravel-tip--handle-pluralization-elegantly-️)
+- [Wrap a Pipeline in a DB Transaction Elegantly](#laravel-tip--wrap-a-pipeline-in-a-db-transaction-elegantly-️)
 
 ## Laravel Tip 💡: The "squish" method ([⬆️](#helpers-tips-cd-))
 
@@ -1237,4 +1238,23 @@ trans_choice('messages.count', 10); // "10 comments"
 
 // Yes, you also get messages depending on the set locale 🔥
 // Another bonus: No more ugly if statements 🔥
+```
+
+## Laravel Tip 💡: Wrap a Pipeline in a DB Transaction Elegantly ([⬆️](#helpers-tips-cd-))
+
+If you are using Laravel pipelines and wrapping the whole thing in a DB transaction, since Laravel v12.22 you can simplify your code by just calling "withinTransaction()" on the pipeline 🚀
+
+```diff
+<?php
+
+- DB::transaction(function () {
+    $user = Pipeline::send($user)
++        ->withinTransaction()
+        ->through([
+            ProcessOrder::class,
+            TransferFunds::class,
+            UpdateInventory::class,
+        ])
+-        ->thenReturn();
+});
 ```
