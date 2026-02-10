@@ -21,12 +21,12 @@ jobs:
           laravel_tips=$(grep -r "^## Laravel Tip" ./tips | wc -l)
           php_tips=$(grep -r "^## PHP Tip" ./tips | wc -l)
           pest_tips=$(grep -r "^## Pest Tip" ./tips | wc -l)
-          
+          claude_code_tips=$(grep -r "^## Claude Code" ./tips | wc -l)
+
           # Calculate total
-          total=$((laravel_tips + php_tips + pest_tips))
-          
+          total=$((laravel_tips + php_tips + pest_tips + claude_code_tips))
+
           echo "{\"totalTips\": $total}" > stats.json
-          echo "Found $laravel_tips Laravel tips, $php_tips PHP tips, $pest_tips Pest tips, total: $total"
           
       - name: Commit and push if changed
         run: |
