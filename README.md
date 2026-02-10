@@ -23,5 +23,6 @@ Currently, there are over 300 tips categorized as follows:
 - 🔒 [Authentication & Authorization Tips](./tips/auth.md) (6 tips)
 - 📦 [Laravel Container Tips](./tips/container.md) (7 tips)
 - ⚠️ [Error Handling Tips](./tips/error-handling.md) (5 tips)
+- ✨ [AI](./tips/ai.md) (1 tip)
 
 If you have new tips or suggestions for improving existing ones, feel free to drop a PR!
