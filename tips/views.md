@@ -42,34 +42,13 @@ Often, we need to conditionally mark an input as checked. While this can be done
 
 ## Laravel Tip 💡: The "selected" Blade Directive ([⬆️](#views--blade-tips-cd-))
 
-When working with `<select>` elements, you often need to conditionally mark an `<option>` as selected.  
-While you can do this manually with a ternary expression, Laravel provides the `@selected` Blade directive 🚀
+When working with select elements, you might need to conditionally mark an option as selected. While you can do this manually, Laravel ships with the "selected" directive to do exactly that 🚀
 
-```blade
-{{-- Without @selected (cluttered) --}}
-<option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>
+```diff
+- <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>
++ <option value="admin" @selected($user->role === 'admin')>
     Admin
-</option>
-```
-
-```blade
-{{-- With @selected (cleaner) --}}
-<option value="admin" @selected($user->role === 'admin')>
-    Admin
-</option>
-```
-
-The `@selected` directive will automatically add the `selected` attribute when the given condition is `true`.  
-This keeps your Blade templates cleaner and easier to read.
-
-```blade
-<select name="role">
-    @foreach ($roles as $role)
-        <option value="{{ $role->value }}" @selected($user->role === $role->value)>
-            {{ $role->label }}
-        </option>
-    @endforeach
-</select>
+  </option>
 ```
 
 ## Laravel Tip 💡: Access the Parent Loop Variable ([⬆️](#views--blade-tips-cd-))
