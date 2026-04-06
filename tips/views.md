@@ -1,7 +1,10 @@
 # Views & Blade Tips ([cd ..](../README.md))
 
+# Views & Blade Tips ([cd ..](../README.md))
+
 - [Type Hinting for Blade](#laravel-tip--type-hinting-for-blade-️)
 - [The "checked" Blade Directive](#laravel-tip--the-checked-blade-directive-️)
+- [The "selected" Blade Directive](#laravel-tip--the-selected-blade-directive-️)
 - [Access the Parent Loop Variable](#laravel-tip--access-the-parent-loop-variable-️)
 - [Short Attribute Syntax](#laravel-tip--short-attribute-syntax-️)
 - [Blade To HTML](#laravel-tip--blade-to-html-️)
@@ -13,6 +16,106 @@
 - [The "forelse" Blade Directive](#laravel-tip--the-forelse-blade-directive-️)
 - [The "use" Blade Directive](#laravel-tip--the-use-blade-directive-️)
 - [Better If Statements in Blade](#laravel-tip--better-if-statements-in-blade-️)
+## Laravel Tip 💡: Type Hinting for Blade ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Type Hinting for Blade ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "checked" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "checked" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Access the Parent Loop Variable ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Access the Parent Loop Variable ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Short Attribute Syntax ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Short Attribute Syntax ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Blade To HTML ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Blade To HTML ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "aware" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "aware" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "readonly" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "readonly" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "includeWhen" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "includeWhen" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Render Inline Blade Templates ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Render Inline Blade Templates ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Useful Loop Properties ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Useful Loop Properties ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "forelse" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "forelse" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "use" Blade Directive ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: The "use" Blade Directive ([⬆️](#views--blade-tips-cd-))
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D10.35-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D10.35-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+```php
+// Instead of this 🥱
+@php
+use \App\Enums\TaskResult;
+use \App\Enums\NotificationTypeEnum as NotificationType;
+@endphp
+
+// You can do this 🔥
+@use('\App\Enums\TaskResult')
+@use('\App\Enums\NotificationTypeEnum', 'NotificationType')
+```
+```php
+// Instead of this 🥱
+@php
+use \App\Enums\TaskResult;
+use \App\Enums\NotificationTypeEnum as NotificationType;
+@endphp
+
+// You can do this 🔥
+@use('\App\Enums\TaskResult')
+@use('\App\Enums\NotificationTypeEnum', 'NotificationType')
+```
+## Laravel Tip 💡: Better If Statements in Blade ([⬆️](#views--blade-tips-cd-))
+## Laravel Tip 💡: Better If Statements in Blade ([⬆️](#views--blade-tips-cd-))
+```html
+@auth
+    {{-- Equivalent to @if(auth()->check()) --}}
+@endauth
+
+@guest
+    {{-- Equivalent to @if(auth()->guest()) --}}
+@endguest
+
+@isset($record)
+    {{-- Equivalent to @if(isset($record)) --}}
+@endisset
+
+@empty($record)
+    {{-- Equivalent to @if(empty($record)) --}}
+@endempty
+
+@production
+    {{-- Equivalent to @if(app()->isProduction()) --}}
+@endproduction
+
+@env('local')
+    {{-- Equivalent to @if(app()->environment('local')) --}}
+@endenv
+```
+```html
+@auth
+    {{-- Equivalent to @if(auth()->check()) --}}
+@endauth
+
+@guest
+    {{-- Equivalent to @if(auth()->guest()) --}}
+@endguest
+
+@isset($record)
+    {{-- Equivalent to @if(isset($record)) --}}
+@endisset
+
+@empty($record)
+    {{-- Equivalent to @if(empty($record)) --}}
+@endempty
+
+@production
+    {{-- Equivalent to @if(app()->isProduction()) --}}
+@endproduction
+
+@env('local')
+    {{-- Equivalent to @if(app()->environment('local')) --}}
+@endenv
+```
 
 ## Laravel Tip 💡: Type Hinting for Blade ([⬆️](#views--blade-tips-cd-))
 
@@ -37,6 +140,38 @@ Often, we need to conditionally mark an input as checked. While this can be done
 <input type="checkbox" name="active" value="active"
     {{ old('active', $user->active) ? 'checked' : '' }}
     @checked(old('active', $user->active)) />
+```
+
+## Laravel Tip 💡: The "selected" Blade Directive ([⬆️](#views--blade-tips-cd-))
+
+When working with `<select>` elements, you often need to conditionally mark an `<option>` as selected.  
+While you can do this manually with a ternary expression, Laravel provides the `@selected` Blade directive 🚀
+
+```blade
+{{-- Without @selected (cluttered) --}}
+<option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>
+    Admin
+</option>
+```
+
+```blade
+{{-- With @selected (cleaner) --}}
+<option value="admin" @selected($user->role === 'admin')>
+    Admin
+</option>
+```
+
+The `@selected` directive will automatically add the `selected` attribute when the given condition is `true`.  
+This keeps your Blade templates cleaner and easier to read.
+
+```blade
+<select name="role">
+    @foreach ($roles as $role)
+        <option value="{{ $role->value }}" @selected($user->role === $role->value)>
+            {{ $role->label }}
+        </option>
+    @endforeach
+</select>
 ```
 
 ## Laravel Tip 💡: Access the Parent Loop Variable ([⬆️](#views--blade-tips-cd-))
