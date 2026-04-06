@@ -2,6 +2,7 @@
 
 - [Type Hinting for Blade](#laravel-tip--type-hinting-for-blade-️)
 - [The "checked" Blade Directive](#laravel-tip--the-checked-blade-directive-️)
+- [The "selected" Blade Directive](#laravel-tip--the-selected-blade-directive-️)
 - [Access the Parent Loop Variable](#laravel-tip--access-the-parent-loop-variable-️)
 - [Short Attribute Syntax](#laravel-tip--short-attribute-syntax-️)
 - [Blade To HTML](#laravel-tip--blade-to-html-️)
@@ -37,6 +38,17 @@ Often, we need to conditionally mark an input as checked. While this can be done
 <input type="checkbox" name="active" value="active"
     {{ old('active', $user->active) ? 'checked' : '' }}
     @checked(old('active', $user->active)) />
+```
+
+## Laravel Tip 💡: The "selected" Blade Directive ([⬆️](#views--blade-tips-cd-))
+
+When working with select elements, you might need to conditionally mark an option as selected. While you can do this manually, Laravel ships with the "selected" directive to do exactly that 🚀
+
+```diff
+- <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>
++ <option value="admin" @selected($user->role === 'admin')>
+    Admin
+  </option>
 ```
 
 ## Laravel Tip 💡: Access the Parent Loop Variable ([⬆️](#views--blade-tips-cd-))
