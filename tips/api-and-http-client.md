@@ -1,19 +1,20 @@
 # API & The HTTP Client Tips ([cd ..](../README.md))
 
-- [The "withToken()" method](#laravel-tip--the-withtoken-method-️)
-- [Extend the "PersonalAccessToken" model](#laravel-tip--extend-the-personalaccesstoken-model-️)
-- [HTTP Client Handler Stats](#laravel-tip--http-client-handler-stats-️)
-- [Without Data Wrapping](#laravel-tip--without-data-wrapping-️)
-- [Collect API Responses](#laravel-tip--collect-api-responses-️)
-- [A Better Content Negotiation](#laravel-tip--a-better-content-negotiation-️)
-- [Get Bearer Tokens Elegantly](#laravel-tip--get-bearer-tokens-elegantly-️)
-- [Retry Concurrent Requests](#laravel-tip--retry-concurrent-requests-️)
-- [Send Concurrent Requests](#laravel-tip--send-concurrent-requests-️)
-- [URI Templates](#laravel-tip--uri-templates-️)
-- [Global Middleware for HTTP Client](#laravel-tip--global-middleware-for-http-client-️)
-- [Convert Responses to Exceptions](#laravel-tip--convert-responses-to-exceptions-️)
-- [HTTP Response Status Helpers](#laravel-tip--http-response-status-helpers-️)
-- [Real-Time Download Progress](#laravel-tip--real-time-download-progress-️)
+- [Laravel Tip 💡: The "withToken()" method (⬆️)](#laravel-tip--the-withtoken-method-️)
+- [Laravel Tip 💡: Extend the "PersonalAccessToken" model (⬆️)](#laravel-tip--extend-the-personalaccesstoken-model-️)
+- [Laravel Tip 💡: HTTP Client Handler Stats (⬆️)](#laravel-tip--http-client-handler-stats-️)
+- [Laravel Tip 💡: Without Data Wrapping (⬆️)](#laravel-tip--without-data-wrapping-️)
+- [Laravel Tip 💡: Collect API Responses (⬆️)](#laravel-tip--collect-api-responses-️)
+- [Laravel Tip 💡: A Better Content Negotiation (⬆️)](#laravel-tip--a-better-content-negotiation-️)
+- [Laravel Tip 💡: Get Bearer Tokens Elegantly (⬆️)](#laravel-tip--get-bearer-tokens-elegantly-️)
+- [Laravel Tip 💡: Retry Concurrent Requests (⬆️)](#laravel-tip--retry-concurrent-requests-️)
+- [Laravel Tip 💡: Send Concurrent Requests (⬆️)](#laravel-tip--send-concurrent-requests-️)
+- [Laravel Tip 💡: URI Templates (⬆️)](#laravel-tip--uri-templates-️)
+- [Laravel Tip 💡: Global Middleware for HTTP Client (⬆️)](#laravel-tip--global-middleware-for-http-client-️)
+- [Laravel Tip 💡: Convert Responses to Exceptions (⬆️)](#laravel-tip--convert-responses-to-exceptions-️)
+- [Laravel Tip 💡: HTTP Response Status Helpers (⬆️)](#laravel-tip--http-response-status-helpers-️)
+- [Laravel Tip 💡: Real-Time Download Progress (⬆️)](#laravel-tip--real-time-download-progress-️)
+- [Laravel Tip 💡: The "noContent()" method (⬆️)](#laravel-tip--the-nocontent-method-️)
 
 ## Laravel Tip 💡: The "withToken()" method ([⬆️](#api--the-http-client-tips-cd-))
 
@@ -333,4 +334,20 @@ Http::withToken('an-api-token')
             // Or update a progress bar in a console command, etc..
         }
     ]);
+```
+
+## Laravel Tip 💡: The "noContent()" method ([⬆️](#api--the-http-client-tips-cd-))
+
+![Laravel](https://img.shields.io/badge/Laravel-%3E%3D5.2-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
+When building RESTful APIs, deleted resources should typically return a 204 No Content response. While you can return the response manually, Laravel already ships with the handy "noContent()" method for exactly this 🚀
+
+```php
+<?php
+
+// Instead of this 😴
+return response('', 204);
+
+// Do this 😎
+return response()->noContent();
 ```
