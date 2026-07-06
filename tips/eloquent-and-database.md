@@ -50,7 +50,6 @@
 - [Disable Global Scopes](#laravel-tip--disable-global-scopes-️)
 - [Hash Passwords Automatically](#laravel-tip--hash-passwords-automatically-️)
 - [The "firstOr" Laravel](#laravel-tip--the-firstor-laravel-️)
-- [Use "sole()" Instead of "firstOrFail()"](#laravel-tip--use-sole-instead-of-firstorfail-️)
 - [The "latest" and "oldest" Methods](#laravel-tip--the-latest-and-oldest-methods-️)
 - [Insert Or Ignore](#laravel-tip--insert-or-ignore-️)
 - [Find Many](#laravel-tip--find-many-️)
@@ -1089,20 +1088,6 @@ $user = User::where('email', $request->input('email'))->firstOr(function () {
         // ...
     ]);
 });
-```
-
-## Laravel Tip 💡: Use "sole()" Instead of "firstOrFail()" ([⬆️](#eloquent--database-tips-cd-))
-
-When querying a record that should be unique (e.g., by email), "firstOrFail()" silently returns the first record even if duplicates exist. Use "sole()" instead to ensure exactly one record matches the query 🚀
-
-```php
-<?php
-
-// ❌ Assumes only one record exists
-$user = User::where('email', $email)->firstOrFail();
-
-// ✅ Ensures exactly one record exists
-$user = User::where('email', $email)->sole();
 ```
 
 ## Laravel Tip 💡: The "latest" and "oldest" Methods ([⬆️](#eloquent--database-tips-cd-))
