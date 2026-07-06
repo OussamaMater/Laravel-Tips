@@ -24,6 +24,7 @@
 - [The "saveMany" method](#laravel-tip--the-savemany-method-️)
 - [Query JSON Fields](#laravel-tip--query-json-fields-️)
 - [The "toBase()" Method](#laravel-tip--the-tobase-method-️)
+- [The "lazy()" Method](#laravel-tip--the-lazy-method-️)
 - [The "value()" Method](#laravel-tip--the-value-method-️)
 - [The "whereAll" and "whereAny" Methods](#laravel-tip--the-whereall-and-whereany-methods-️)
 - [Limit Eager Loaded Relationships](#laravel-tip--limit-eager-loaded-relationships-️)
@@ -517,6 +518,28 @@ Sometimes, you may need to load a large amount of data, but you don't need the h
 // This collection will consist of PHP objects
 // and will not include hydrated models
 $users = User::toBase()->get();
+```
+
+## Laravel Tip 💡: The "lazy()" Method ([⬆️](#eloquent--database-tips-cd-))
+
+Need to process a large dataset without blowing up your memory? Use `lazy()` to stream records one by one via a LazyCollection instead of loading everything into memory at once 🚀
+
+```php
+<?php
+
+// ❌ Loads all users into memory first
+User::where('active', true)
+    ->get()
+    ->each(function (User $user): void {
+        SendReminder::dispatch($user);
+    });
+
+// ✅ Streams records instead of loading everything at once
+User::where('active', true)
+    ->lazy()
+    ->each(function (User $user): void {
+        SendReminder::dispatch($user);
+    });
 ```
 
 ## Laravel Tip 💡: The "value()" Method ([⬆️](#eloquent--database-tips-cd-))
